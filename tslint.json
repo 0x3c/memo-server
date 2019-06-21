@@ -1,0 +1,14 @@
+{
+  "defaultSeverity": "error",
+  "extends": ["tslint:recommended"],
+  "jsRules": {},
+  "linterOptions": {
+    "include": ["src"]
+  },
+  "rules": {
+    "interface-name": false,
+    "member-access": [true, "no-public"],
+    "no-console": false
+  },
+  "rulesDirectory": []
+}
