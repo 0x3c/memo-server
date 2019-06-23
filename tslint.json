@@ -6,9 +6,22 @@
     "include": ["src"]
   },
   "rules": {
+    "trailing-comma": [
+      true,
+      {
+        "singleline": "never",
+        "multiline": {
+          "objects": "never",
+          "arrays": "never",
+          "functions": "never",
+          "typeLiterals": "ignore"
+        }
+      }
+    ],
     "interface-name": false,
-    "member-access": [true, "no-public"],
-    "no-console": false
+    "no-console": false,
+    "ordered-imports": [false]
   },
+
   "rulesDirectory": []
 }
