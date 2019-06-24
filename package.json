@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@koa/cors": "^3.0.0",
     "@types/koa": "^2.0.48",
     "@types/koa-bodyparser": "^4.3.0",
     "@types/koa-router": "^7.0.41",
@@ -22,5 +23,8 @@
     "hooks": {
       "pre-commit": "yarn tslint -p ."
     }
+  },
+  "devDependencies": {
+    "@types/koa__cors": "^2.2.3"
   }
 }

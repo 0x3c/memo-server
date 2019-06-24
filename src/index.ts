@@ -1,5 +1,6 @@
 import Koa from "koa";
 import Router from "koa-router";
+import cors from "@koa/cors";
 import bodyParser from "koa-bodyparser";
 import { createConnection, getManager } from "typeorm";
 import "reflect-metadata";
@@ -10,33 +11,32 @@ const router: Router = new Router();
 const PORT = 6001;
 
 createConnection();
+app.use(cors());
 
 router.get("/items", async (ctx, next) => {
   const workItemRepos = getManager().getRepository(WorkItem);
   //
   try {
     const workItems = await workItemRepos.find({ order: { created: "DESC" } });
-    ctx.res.write(JSON.stringify({ ok: true, data: workItems }));
-    ctx.res.end();
+    ctx.response.status = 200;
+    ctx.body = { ok: true, data: workItems };
   } catch (error) {
-    ctx.res.write(JSON.stringify({ ok: false }));
-    ctx.res.end();
+    ctx.response.status = 400;
+    ctx.body = { ok: false };
   }
 });
 router.post("/items", async (ctx, next) => {
   const { text } = ctx.request.body;
-
   const wrokitem = new WorkItem();
   wrokitem.text = text;
   const workItemRepos = getManager().getRepository(WorkItem);
-
   try {
     const resp = await workItemRepos.save(wrokitem);
-    ctx.res.write(JSON.stringify({ ok: true, data: resp }));
-    ctx.res.end();
+    ctx.response.status = 200;
+    ctx.body = { ok: true, data: resp };
   } catch (error) {
-    ctx.res.write(JSON.stringify({ ok: false }));
-    ctx.res.end();
+    ctx.response.status = 400;
+    ctx.body = { ok: false };
   }
 });
 
@@ -46,11 +46,11 @@ router.delete("/:id", async (ctx, next) => {
 
   try {
     const resp = await workItemRepos.delete(id);
-    ctx.res.write(JSON.stringify({ ok: true }));
-    ctx.res.end();
+    ctx.response.status = 200;
+    ctx.body = { ok: true };
   } catch (error) {
-    ctx.res.write(JSON.stringify({ ok: false }));
-    ctx.res.end();
+    ctx.response.status = 400;
+    ctx.body = { ok: false };
   }
 });
 
@@ -63,12 +63,11 @@ router.put("/:id", async (ctx, next) => {
     const resp = await workItemRepos.update(id, {
       checked
     });
-    ctx.res.write(JSON.stringify({ ok: true }));
-    ctx.res.statusCode = 204;
-    ctx.res.end();
+    ctx.response.status = 200;
+    ctx.body = { ok: true };
   } catch (error) {
-    ctx.res.write(JSON.stringify({ ok: false }));
-    ctx.res.end();
+    ctx.response.status = 400;
+    ctx.body = { ok: false };
   }
 });
 
