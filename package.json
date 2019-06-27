@@ -4,7 +4,7 @@
     "@types/koa": "^2.0.48",
     "@types/koa-bodyparser": "^4.3.0",
     "@types/koa-router": "^7.0.41",
-    "@types/node": "^12.0.8",
+    "@types/node": "^12.0.10",
     "husky": "^2.4.1",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
@@ -17,8 +17,8 @@
     "typescript": "^3.5.2"
   },
   "scripts": {
-    "start": "ts-node src/index.ts",
-    "build": "concurrently \"tsc -w\" \"nodemon build/index.js\""
+    "start": "concurrently \"tsc -w\" \"NODE_ENV=\"production\" nodemon build/index.js\"",
+    "build": "tsc -p ."
   },
   "husky": {
     "hooks": {

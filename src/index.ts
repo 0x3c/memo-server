@@ -2,20 +2,20 @@ import Koa from "koa";
 import Router from "koa-router";
 import cors from "@koa/cors";
 import koajwt from "koa-jwt";
-// const jwt = require("jsonwebtoken");
 import jwt from "jsonwebtoken";
 import bodyParser from "koa-bodyparser";
-import { createConnection, getManager } from "typeorm";
+import { createConnection, getManager, ConnectionOptions } from "typeorm";
 import "reflect-metadata";
 import { WorkItem } from "./entity/workItem";
 import { User } from "./entity/user";
 import { secret, issuer } from "./configs";
+const configs = require("../ormconfig");
 const app = new Koa();
 const router: Router = new Router();
 
 const PORT = 6001;
 
-createConnection();
+createConnection(configs);
 app.use(cors());
 app.use((ctx, next) => {
   return next().catch(err => {
