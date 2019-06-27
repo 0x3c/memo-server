@@ -11,7 +11,7 @@ export class WorkItem {
   @PrimaryGeneratedColumn()
   public id: number;
 
-  @Column({ length: 100 })
+  @Column({ length: 100, nullable: true })
   public text: string;
 
   @Column({ default: false })
